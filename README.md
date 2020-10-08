@@ -134,7 +134,7 @@ serial = /dev/ttyUSB0
 Sets modes Range 30dB - 80dB, dB(C), slow, and start recording to internal storage.
 
 ```
-$ python -m dt8852 set_mode --range R_30_80 --freqweighting DBC --timeweighting SLOW --record
+$ python -m dt8852 set_mode --range R_30_80 --freqweighting DBC --timeweighting SLOW --record RECORDING
 ```
 
 #### Stop recording
