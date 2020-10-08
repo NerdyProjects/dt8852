@@ -67,7 +67,7 @@ After installation, the module can be run directly from the command line, and ca
 * `live` get live SPL measurements from device, output to stdout.
 * `set_mode` configure device according to specified values and exits.
 * `get_mode` retrieve current device configuration and exit.
-* `download` to download recorded sessions as command separated value (csv) files and exit.
+* `download` to download recorded sessions as comma separated value (csv) files and exit.
 
 Use `python -m dt8852 -h` for basic help, or `python -m dt8852 MODE -h` for mode-specific help, for example `python -m dt8852 live -h`.
 
@@ -180,7 +180,7 @@ which is quite spammy.
 
 Requested configuration is send to the device while calling decode_next_token. The process is done, if the passed modes sequence is empty.
 
-Currently the correct mechanism of precisely when to send the commands to the device is not well understood. More often than not, the device ignores the send commands. The current implementation tries to mitigate this by periodically sending the command, and then waits if it has the desired effect. This method is not perfect, resulting in incorrect device configuration. Of course, you can always use the device's own buttons to set the desired mode at any time.
+Currently the correct mechanism of precisely when to send the commands to the device is not well understood. More often than not, the device ignores the sent commands. The current implementation tries to mitigate this by periodically sending the command, and then waits if it has the desired effect. This method is not perfect, resulting in incorrect device configuration. Of course, you can always use the device's own buttons to set the desired mode at any time.
 
 **`get_recordings()`**  Generator function yielding all recorded sessions and data.
 
@@ -203,7 +203,7 @@ dump_complete [bytes read so far]
 
 ### Instance variables
 
-The devices simply outputs a stream of current values. The `decode_next_token()`-loop decodes this stream, and gradually fills the following instance variables. These are read-only.
+The device simply outputs a stream of current values. The `decode_next_token()`-loop decodes this stream, and gradually fills the following instance variables. These are read-only.
 
 **`current_spl`** Most recent SPL measurement.
 
@@ -238,7 +238,7 @@ for data in spl_meter.decode_next_token():
     print(data)
 ```
 
-A more extended example of API usage is available on https://codeberg.org/randysimons/dt8852.
+A more extended example of API usage is available in [example.py](https://codeberg.org/randysimons/dt8852/src/branch/main/example.py).
 
 # Attribution
 
