@@ -21,12 +21,12 @@ dt8852 is a cross-platform Python package and module for reading and controlling
 
 This device is also re-branded and sold as:
 
-* Trotec SL-400
+* Trotec SL400
 * Voltcraft SL-451
 * ATP SL-8852
 * … probably various others.
 
-The CEM DT-8851 lacks the data logger functionality, but might otherwise be supported as well. However, due to availability of only a Trotec SL-400, the package is only tested on this device.
+The CEM DT-8851 lacks the data logger functionality, but might otherwise be supported as well. However, due to availability of only a Trotec SL400, the package is only tested on this device.
 
 # Installation
 
