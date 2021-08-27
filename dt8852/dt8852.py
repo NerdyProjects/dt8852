@@ -152,6 +152,8 @@ serial = {self.serial.port if self.serial else "Unknown"}"""
         which is quite spammy.
         """
 
+        supported_tokens = [ '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f', '11', '19', '1a', '1b', '1c', '1f', '30', '40', '4b', '4c' ]
+
         set_mode_throttle_counter = 0
         while True:
             # Wait for token start byte
@@ -159,6 +161,8 @@ serial = {self.serial.port if self.serial else "Unknown"}"""
                 pass
 
             token = self.serial.read().hex()
+            while token not in supported_tokens:
+                token = self.serial.read().hex()
 
             # Get handler for the received token, and call it.
             decoded_token = getattr(self, f"_Dt8852__decode_token_0x{token}")()

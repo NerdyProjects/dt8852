@@ -12,7 +12,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=['pyserial >= 3.4'],
-    python_requires='>=3.8',
+    python_requires='>=3.7',
     url='https://codeberg.org/randysimons/dt8852',
     classifiers=['Operating System :: OS Independent',
                  'Programming Language :: Python :: 3.8',
