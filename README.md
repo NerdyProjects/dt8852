@@ -48,7 +48,7 @@ On Debian / Ubuntu, use `pip3` instead of `pip`.
 
 The devices internally uses a USB-to-UART bridge by Silicon Labs. Your OS needs a driver for this to work, so the device can be accessed as a regular RS232 serial (COM) device.
 
-* On **Linux**, the driver is already available on many distributions. No action is needed.
+* On **Linux**, the driver is already available on many distributions. No action is needed. However, depending on your Linux distribution, a user might need permission to access serial interfaces. E.g. on Ubuntu, Debian, openSUSE, Fedora your user needs to be part of the `dialout` group. On Ubuntu and Debian you can add yourself to this group using `$ sudo usermod -a -G dialout $USER`. Others may vary.
 * On **Windows 10**, the device is automatically recognized, and Windows installs the appropriate driver. No action is needed. Alternatively, if you already have installed the provided software, no action is needed. If needed, the USB driver is available directly from [Silicon Labs](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers).
 * On **Mac OSX**, a USB driver is available from [Silicon Labs](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers).
 
@@ -62,25 +62,25 @@ After installation, the module can be run directly from the command line, and ca
 
 ## Command line interface
 
-`python -m dt8852 MODE`, where `MODE` is one of:
+`python3 -m dt8852 MODE`, where `MODE` is one of:
 
 * `live` get live SPL measurements from device, output to stdout.
 * `set_mode` configure device according to specified values and exits.
 * `get_mode` retrieve current device configuration and exit.
 * `download` to download recorded sessions as comma separated value (csv) files and exit.
 
-Use `python -m dt8852 -h` for basic help, or `python -m dt8852 MODE -h` for mode-specific help, for example `python -m dt8852 live -h`.
+Use `python3 -m dt8852 -h` for basic help, or `python3 -m dt8852 MODE -h` for mode-specific help, for example `python3 -m dt8852 live -h`.
 
-Note: by default the serial interface used is `COM3` on Windows, `/dev/ttyUSB0` on other OSses. You can override this by using the `--serial_port` argument. The currently available serial interfaces can be found by running `python -m  serial.tools.list_ports` on the command line.
+Note: by default the serial interface used is `COM3` on Windows, `/dev/ttyUSB0` on other OSses. You can override this by using the `--serial_port` argument. The currently available serial interfaces can be found by running `python3 -m  serial.tools.list_ports` on the command line.
 
 ### Examples
 
-Note: these example assume Python version 3 (i.e. python3) is the default interpreter.
+The following examples each show a command from the command line and an example of the output.
 
 #### Basic live output
 
 ```
-$ python -m dt8852 live
+$ python3 -m dt8852 live
 33.3
 32.4
 32.9
@@ -90,18 +90,18 @@ $ python -m dt8852 live
 #### Verbose level 1 live output
 
 ```
-$ python -m dt8852 live -v
+$ python3 -m dt8852 live -v
 2020-10-01 22:27:02.806050,37.3
 2020-10-01 22:27:03.304626,33.0
 2020-10-01 22:27:03.802777,56.2
 2020-10-01 22:27:04.301302,53.0
 ```
-Tip: if you redirect the output to a file, e.g. `python -m dt8852 live -v > output.csv`, you can easily import the output in a spreadsheet.
+Tip: if you redirect the output to a file, e.g. `python3 -m dt8852 live -v > output.csv`, you can easily import the output in a spreadsheet.
 
 #### Verbose level 5 live output
 
 ```
-$ python -m dt8852 live -vvvvv
+$ python3 -m dt8852 live -vvvvv
 ('frequency_weighting', <Frequency_weighting.DBA: 'dB(A)'>, True)
 ('current_time', time.struct_time(tm_year=1900, tm_mon=1, tm_mday=1, tm_hour=22, tm_min=29, tm_sec=4, tm_wday=0, tm_yday=1, tm_isdst=-1), True)
 ('range_mode', <Range_mode.R_30_80: '30dB - 80dB'>, True)
@@ -114,7 +114,7 @@ $ python -m dt8852 live -vvvvv
 #### Get current configuration
 
 ```
-$ python -m dt8852 get_mode
+$ python3 -m dt8852 get_mode
 current_time = 22:31:39
 current_spl = 40.7dB
 frequency_weighting = dB(A)
@@ -134,13 +134,13 @@ serial = /dev/ttyUSB0
 Sets modes Range 30dB - 80dB, dB(C), slow, and start recording to internal storage.
 
 ```
-$ python -m dt8852 set_mode --range R_30_80 --freqweighting DBC --timeweighting SLOW --record RECORDING
+$ python3 -m dt8852 set_mode --range R_30_80 --freqweighting DBC --timeweighting SLOW --record RECORDING
 ```
 
 #### Stop recording
 
 ```
-$ python -m dt8852 set_mode --record NOT_RECORDING
+$ python3 -m dt8852 set_mode --record NOT_RECORDING
 ```
 
 #### Download recordings
@@ -148,7 +148,7 @@ $ python -m dt8852 set_mode --record NOT_RECORDING
 **Note:** make sure the device is not recording anymore before downloading, otherwise memory corruption will occur.
 
 ```
-$ python -m dt8852 download
+$ python3 -m dt8852 download
 Downloading 2349 bytes
 Writing file: Recording 2020-10-01 21-49-19, dB(A), sample interval 1s.csv
 Number of recorded samples written to file: 7
