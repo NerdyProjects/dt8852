@@ -240,6 +240,23 @@ for data in spl_meter.decode_next_token():
 
 A more extended example of API usage is available in [example.py](https://codeberg.org/randysimons/dt8852/src/branch/main/example.py).
 
+# The clock problem
+
+Besides the 9V battery, these devices contain a lithium cell to keep the clock running when powered off. However, it seems that when this cell runs out after a few years, the clock stops and the time displayed is frozen at `00:00:00`. This also causes issues with this library, as the time `00:00:00 am` is invalid and cannot be parsed. The Python exception is: 
+`ValueError: time data '2000-01-01 00:00:00 am' does not match format '%Y-%m-%d %I:%M:%S %p'`
+
+You can replace the lithum cell by opening the device. The exact type seems to vary by specific brand and/or type. The Trotec SL400 contains a CR1220 lithium cell.
+
+After replacing the cell, the clock might still be frozen, even when setting the correct date and time. To remedy this, use the (undocumented) reset-option:
+
+1. Power on the device, while keeping the `Setup` button pressed.
+2. Repeatedly press `Setup` until `rSt` is shown.
+3. Press `HOLD`.
+
+The device will now reset the date and time, and the clock should now work properly. You can the set the correct date and time again.
+
+This _might_ work without replacing the lithium cell, but the clock will reset to `00:00:00` if the device is powered off for more than a few seconds.
+
 # Attribution
 
 The project is based on information from the [Sigrok device wiki for CEM DT-8852](https://sigrok.org/wiki/CEM_DT-8852).
